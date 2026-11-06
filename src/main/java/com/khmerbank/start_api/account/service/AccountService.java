@@ -12,6 +12,7 @@ import com.khmerbank.start_api.exception.ResourceNotFoundException;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import com.khmerbank.start_api.account.dto.AccountResponse;
+import com.khmerbank.start_api.account.dto.TransactionResponse;
 import com.khmerbank.start_api.account.dto.TransferRequest;
 import com.khmerbank.start_api.account.dto.TransferResponse;
 import com.khmerbank.start_api.account.model.Transaction;
@@ -81,6 +82,23 @@ public class AccountService {
             request.amount(),
             sourceAccount.getBalance()
         );
-    }   
-
+        }   
+    @Transactional (readOnly = true)
+    public List<TransactionResponse> getAccountTransactions(Long accountId){
+        if(!accountRepository.existsById(accountId)){
+            throw new ResourceNotFoundException("Account not with ID : "+ accountId);
+        }
+        List<Transaction> transaction = transactionRepository
+        .findBySourceAccountIdOrTargetAccountIdOrderByCreatedAtDesc(accountId, accountId);
+        return transaction.stream()
+                .map(t -> new TransactionResponse(
+                    t.getId(),
+                    t.getSourceAccountId(),
+                    t.getTargetAccountId(),
+                    t.getAmount(),
+                    t.getStatus(),
+                    t.getCreatedAt()
+                ))
+                .toList();
+    }
 }
