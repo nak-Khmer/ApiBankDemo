@@ -67,14 +67,14 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(InsufficientBalanceException.class)
-    public ResponseEntity<ErrorResponse> handleInsufficientBalance(
-            InsufficientBalanceException ex, 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgument(
+            IllegalArgumentException ex, 
             HttpServletRequest request) {
         
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
-                ex.getMessage(),
+                ex.getMessage(), // បង្ហាញសារ: "Cannot transfer money to the same account"
                 request.getRequestURI(),
                 LocalDateTime.now()
         );

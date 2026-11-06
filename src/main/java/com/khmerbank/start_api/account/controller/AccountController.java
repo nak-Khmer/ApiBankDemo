@@ -7,6 +7,10 @@ import com.khmerbank.start_api.account.dto.AccountResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import com.khmerbank.start_api.account.dto.TransferRequest;
+import com.khmerbank.start_api.account.dto.TransferResponse;
 @RestController 
 @RequestMapping("api/v1/accounts")
 public class AccountController {
@@ -17,5 +21,9 @@ public class AccountController {
     @GetMapping ("/{id}")
     public ResponseEntity<AccountResponse> getAccountById(@PathVariable("id") Long id) {
         return  ResponseEntity.ok(accountService.getAccountById(id));
+    }
+    @PostMapping("/transfer")
+    public ResponseEntity<TransferResponse> transferMoney(@RequestBody TransferRequest request) {
+        return ResponseEntity.ok(accountService.transferMoney(request));
     }
 }
