@@ -3,18 +3,20 @@ package com.khmerbank.start_api.account.model;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.khmerbank.start_api.user.model.User;
 import com.khmerbank.start_api.model.Card;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
 @Entity
 @Table (name = "accounts")
 public class Account {
@@ -28,6 +30,9 @@ public class Account {
     @Column (name = "account_type",nullable = false,length = 20)
     private String accountType; //SAVINGS, PAYROLL , CURRENT
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name = "user_id" ,nullable = false)
+    private User user; // ទំនាក់
     // ទំនាក់ទំនង One-to-Many: គណនីមួយមានកាតច្រើន
     // mappedBy = "account" សំដៅលើឈ្មោះ Field "account" នៅក្នុង Class Card
 
