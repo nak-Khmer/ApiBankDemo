@@ -16,15 +16,5 @@ spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 spring.data.web.pageable.one-indexed-parameters=true
-<<<<<<< HEAD
-=======
-
-# JWT Configuration (Base32-encoded 256-bit Key)
-application.security.jwt.secret-key=283WSM68NpSo4ynztToE/hfpXpy9HX2fvBhRvI5DphA=
-# រយៈពេលផុតកំណត់: 86400000 ms = 24 ម៉ោង
+application.security.jwt.secret-key=YOUR_SECRET_KEY_HERE
 application.security.jwt.expiration=900000
-
-groq.api-key=${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}
-groq.base-url=https://api.groq.com/openai/v1
-groq.model=llama-3.3-70b-versatile
->>>>>>> 2640d43 (add Ai and more details)
